@@ -1,4 +1,4 @@
-exports.response = function(rtm, event) {
+exports.response = function(rtm, event, lastNumber) {
   if (event.subtype === 'message_changed') {
     console.log("edited message", event)
     return
@@ -48,6 +48,16 @@ exports.response = function(rtm, event) {
         return
       }
     }
+    if (num <= 0) {
+      console.log("it's below zero, some kind of error", msg, event);
+      return;
+    }
+    if (num < lastNumber) {
+      console.log("it's below the last number, some kind of error", msg, event);
+      return;
+    }
+    lastNumber = num;
+
     (async () => {
       const reply = await rtm.sendMessage(msg, event.channel);
       console.log("sending a message", reply);
