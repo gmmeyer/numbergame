@@ -35,6 +35,7 @@ exports.response = function(rtm, event) {
   // zero width space
   text = text.replace(/­/g, '')
   text = text.replace(/\./g, '')
+  text = text.replace(/-/g, '')
 
   var num = parseInt(text)
   if (!isNaN(num)) {
