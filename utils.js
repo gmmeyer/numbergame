@@ -34,6 +34,7 @@ exports.response = function(rtm, event, lastNumber) {
   text = text.replace(/\s/g, '')
   // zero width space
   text = text.replace(/­/g, '')
+  text = text.replace(/‏/g, '')
   text = text.replace(/\./g, '')
   text = text.replace(/-/g, '')
 
