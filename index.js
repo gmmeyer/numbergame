@@ -7,6 +7,9 @@ const utils = require('./utils')
 
 const rtm = new RTMClient(token)
 
+// this is a nasty hack
+var lastNumber = 0
+
 // Attach listeners to events by type. See: https://api.slack.com/events/message
 rtm.on('message', async (event) => {
   if (event.channel !== numbersGame) {
@@ -17,7 +20,7 @@ rtm.on('message', async (event) => {
     return
   }
 
-  utils.response(rtm, event)
+  utils.response(rtm, event, lastNumber)
 
 });
 
