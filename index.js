@@ -20,7 +20,10 @@ rtm.on('message', async (event) => {
     return
   }
 
-  utils.response(rtm, event, lastNumber)
+  n = utils.response(rtm, event, lastNumber)
+  if (n) {
+    lastNumber = n;
+  }
 
 });
 

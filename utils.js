@@ -24,6 +24,10 @@ exports.response = function(rtm, event, lastNumber) {
     return
   }
 
+  if (text.includes('\u200f')) {
+    return
+  }
+
   if (text.includes('*')) {
     text = text.replace(/\*/g, '')
   }
@@ -57,12 +61,13 @@ exports.response = function(rtm, event, lastNumber) {
       console.log("it's below the last number, some kind of error", msg, event);
       return;
     }
-    lastNumber = num;
 
     (async () => {
       const reply = await rtm.sendMessage(msg, event.channel);
       console.log("sending a message", reply);
     })()
+
+    return num;
   } else {
     console.log("cannot parse message", event)
   }
