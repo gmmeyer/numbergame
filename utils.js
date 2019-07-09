@@ -4,6 +4,11 @@ exports.response = function(rtm, event, lastNumber) {
     return
   }
 
+  if (event.subtype === 'message_replied') {
+    console.log("replied message", event)
+    return
+  }
+
   var text = ''
   if (event.message) {
     if (typeof event.message === 'string') {
