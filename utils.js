@@ -1,4 +1,6 @@
-exports.response = function(rtm, event, lastNumber) {
+lastNumber = require('./cache').lastNumber
+
+exports.response = function(rtm, event) {
 
   if (!validEvent(event)) {
     return
@@ -20,7 +22,7 @@ exports.response = function(rtm, event, lastNumber) {
     console.log("sending a message", num, "for event", event);
     var msg = `${num}`;
 
-    if (!validMsg(msg, text, lastNumber)) {
+    if (!validMsg(msg, text)) {
       return
     }
 
@@ -99,7 +101,7 @@ function validEvent(event) {
   return true
 }
 
-function validMsg(msg, text, lastNumber) {
+function validMsg(msg, text) {
   if (msg.length != text.length) {
     if (num !== 1000) {
       console.log("it's not the same length, some kind of error", msg, event)
