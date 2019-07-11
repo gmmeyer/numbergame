@@ -30,7 +30,7 @@ exports.response = function(event) {
     console.log("sending a message", num, "for event", event);
     var msgText = `${num}`;
 
-    if (!validMsg(msg, text, num)) {
+    if (!validMsg(msgText, text, num)) {
       return
     }
 
