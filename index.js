@@ -3,7 +3,7 @@ const token = process.env.SLACK_TOKEN
 const numbersGame = process.env.NUMBERSGAME
 const me = process.env.ME
 
-const utils = require('./utils')
+const response = require('./response')
 
 const rtm = new RTMClient(token)
 
@@ -17,10 +17,11 @@ rtm.on('message', async (event) => {
     return
   }
 
-  utils.response(rtm, event)
+  response.response(rtm, event)
 
 });
 
 (async () => {
+  console.log('starting the rtm server')
   await rtm.start();
 })()
