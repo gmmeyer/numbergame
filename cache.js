@@ -1,12 +1,12 @@
 var numberCache = {}
 var responseCache = {}
 
-function addToCache(number, id, originalId) {
+function addToCache(number, originalId, ts) {
   var data = {
     originalNumber: number - 1,
     number: number,
-    id: id,
     originalId: originalId,
+    ts: ts,
   }
   numberCache[number] = data
   responseCache[originalId] = data
@@ -18,4 +18,14 @@ function deleteFromCache(number) {
   delete(responseCache[originalId])
 }
 
+function getFromCacheByOriginalId(object) {
+  return responseCache[originalId]
+}
+
+
 exports.lastNumber = 0
+
+
+exports.getFromCacheByOriginalId = getFromCacheByOriginalId
+exports.deleteFromCache = deleteFromCache
+exports.addToCache = addToCache

@@ -4,6 +4,7 @@ const numbersGame = process.env.NUMBERSGAME
 const me = process.env.ME
 
 const response = require('./response')
+const deleted = require('./deleted')
 
 const rtm = new RTMClient(token)
 

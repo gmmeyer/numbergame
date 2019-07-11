@@ -1,4 +1,8 @@
-lastNumber = require('./cache').lastNumber
+const numbersGame = process.env.NUMBERSGAME
+
+var lastNumber = require('./cache').lastNumber
+
+var addToCache = require('./cache').addToCache
 
 exports.response = function(rtm, event) {
 
@@ -6,7 +10,7 @@ exports.response = function(rtm, event) {
     return
   }
 
-  var text = parseEvent(text)
+  var text = parseEvent(event)
 
   if (!isValid(text)) {
     console.log('an invalid message', event)
@@ -20,15 +24,22 @@ exports.response = function(rtm, event) {
   if (!isNaN(num)) {
     num++
     console.log("sending a message", num, "for event", event);
-    var msg = `${num}`;
+    var msgText = `${num}`;
 
-    if (!validMsg(msg, text)) {
+    if (!validMsg(msg, text, num)) {
       return
     }
 
     (async () => {
-      const reply = await rtm.sendMessage(msg, event.channel);
+      var msg = {
+        channel: OneTrueDonut,
+        text: msgText,
+        as_user: true
+      }
+      const reply = await web.chat.postMessage(msg, event.channel);
       console.log("sending a message", reply);
+
+      addToCache(num, event.client_msg_id, reply.ts)
     })()
 
     return num;
@@ -101,7 +112,7 @@ function validEvent(event) {
   return true
 }
 
-function validMsg(msg, text) {
+function validMsg(msg, text, num) {
   if (msg.length != text.length) {
     if (num !== 1000) {
       console.log("it's not the same length, some kind of error", msg, event)

@@ -1,0 +1,4 @@
+
+
+exports.postMessage = function() {
+}
