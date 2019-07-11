@@ -48,7 +48,7 @@ exports.response = function(event) {
 
     return num;
   } else {
-    console.log("cannot parse message", event)
+    console.log("cannot parse message", event, "text:", text)
   }
 }
 
@@ -79,6 +79,10 @@ function fixText(text) {
   text = text.replace(/\./g, '')
   text = text.replace(/-/g, '')
   text = text.replace(/\\/g, '')
+
+  text = text.replace(/[^\x00-\x7F]/g, "");
+  text = text.replace(/\(/g, "")
+  text = text.replace(/\)/g, "")
 
   return text
 }
@@ -128,9 +132,14 @@ function validMsg(msg, text, num, event) {
     console.log("it's below zero, some kind of error", msg, event);
     return false
   }
-  if (num < lastNumber) {
-    console.log("it's below the last number, some kind of error", msg, event);
-    return false
+  if (lastNumber) {
+    if (num < lastNumber) {
+      console.log("it's below the last number, some kind of error", msg, event);
+      return false
+    }
+    if (num > lastNumber + 5) {
+      return false
+    }
   }
 
   return true
