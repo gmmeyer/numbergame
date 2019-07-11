@@ -36,7 +36,7 @@ exports.response = function(event) {
 
     (async () => {
       var msg = {
-        channel: OneTrueDonut,
+        channel: numbersGame,
         text: msgText,
         as_user: true
       }
