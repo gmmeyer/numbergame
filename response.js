@@ -1,10 +1,14 @@
+const slack = require('./slack')
+const rtm = slack.rtm
+const web = slack.web
+
 const numbersGame = process.env.NUMBERSGAME
 
 var lastNumber = require('./cache').lastNumber
 
 var addToCache = require('./cache').addToCache
 
-exports.response = function(rtm, event) {
+exports.response = function(event) {
 
   if (!validEvent(event)) {
     return

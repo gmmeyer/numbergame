@@ -1,3 +1,7 @@
+const slack = require('./slack')
+const rtm = slack.rtm
+const web = slack.web
+
 const numbersGame = process.env.NUMBERSGAME
 
 var lastNumber = require('./cache').lastNumber
@@ -5,7 +9,7 @@ var lastNumber = require('./cache').lastNumber
 var getFromCacheByOriginalId = require('./cache').getFromCacheByOriginalId
 var deleteFromCache = require('./cache').deleteFromCache
 
-exports.deleted = function(rtm, event) {
+exports.deleted = function(event) {
 
   if (event.subtype != 'message_deleted') {
     console.log("not a deleted message", event)

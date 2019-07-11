@@ -18,7 +18,8 @@ rtm.on('message', async (event) => {
     return
   }
 
-  response.response(rtm, event)
+  response.response(event)
+  deleted.deleted(event)
 
 });
 
