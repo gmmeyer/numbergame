@@ -30,7 +30,7 @@ exports.response = function(event) {
     console.log("sending a message", num, "for event", event);
     var msgText = `${num}`;
 
-    if (!validMsg(msgText, text, num)) {
+    if (!validMsg(msgText, text, num, event)) {
       return
     }
 
@@ -116,7 +116,7 @@ function validEvent(event) {
   return true
 }
 
-function validMsg(msg, text, num) {
+function validMsg(msg, text, num, event) {
   if (msg.length != text.length) {
     if (num !== 1000) {
       console.log("it's not the same length, some kind of error", msg, event)
