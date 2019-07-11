@@ -14,11 +14,12 @@ function addToCache(number, originalId, ts) {
 
 function deleteFromCache(number) {
   var data = numberCache[number]
+  var originalId = data.originalId
   delete(numberCache[number])
   delete(responseCache[originalId])
 }
 
-function getFromCacheByOriginalId(object) {
+function getFromCacheByOriginalId(originalId) {
   return responseCache[originalId]
 }
 

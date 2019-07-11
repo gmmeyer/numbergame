@@ -8,3 +8,10 @@ exports.getChannel = function() {
 
   return numbersGame
 }
+
+exports.isTestEnv = function() {
+  if (process.env.TEST) {
+    return true
+  }
+  return false
+}

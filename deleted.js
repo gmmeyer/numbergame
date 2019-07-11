@@ -2,7 +2,9 @@ const slack = require('./slack')
 const rtm = slack.rtm
 const web = slack.web
 
-const numbersGame = process.env.NUMBERSGAME
+const utils = require('./utils')
+
+const numbersGame = utils.getChannel()
 
 var lastNumber = require('./cache').lastNumber
 
@@ -14,6 +16,8 @@ exports.deleted = function(event) {
   if (event.subtype != 'message_deleted') {
     console.log("not a deleted message", event)
     return
+  } else {
+    console.log("a deleted message", event)
   }
 
   var originalId = parseEvent(event)
@@ -28,17 +32,23 @@ exports.deleted = function(event) {
   var ts = data.ts
 
   if (!ts) {
+    console.log('no time stamp', data)
     return
   }
 
   (async () => {
-    const reply = await web.chat.delete({
+    web.chat.delete({
       channel: numbersGame,
       ts: ts,
       as_user: true,
-    });
-    console.log("deleted a message", reply);
-    deleteFromCache(number)
+    })
+      .then(function(reply) {
+        deleteFromCache(number)
+        console.log("deleted a message", reply);
+      })
+      .catch(function(e) {
+        console.log("error deleting a message", e)
+      })
   })()
 }
 
