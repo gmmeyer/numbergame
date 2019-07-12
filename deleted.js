@@ -26,6 +26,7 @@ exports.deleted = function(event) {
   }
 
   var data = getFromCacheByOriginalId(originalId)
+  if (!data) return
   var originalNumber = data.originalNumber
   var number = data.number
   var id = data.id
