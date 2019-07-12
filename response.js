@@ -84,6 +84,8 @@ function fixText(text) {
   text = text.replace(/[^\x00-\x7F]/g, "");
   text = text.replace(/\(/g, "")
   text = text.replace(/\)/g, "")
+  text = text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "")
+
 
   return text
 }
